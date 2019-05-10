@@ -1,4 +1,5 @@
 import {Command, flags} from '@oclif/command'
+import Tracker from './Tracker'
 
 class Fewt extends Command {
   static description = 'describe the command here'
@@ -13,16 +14,12 @@ class Fewt extends Command {
     force: flags.boolean({char: 'f'}),
   }
 
-  static args = [{name: 'file'}]
+  static args = [{name: 'url'}]
 
   async run() {
     const {args, flags} = this.parse(Fewt)
 
-    const name = flags.name || 'world'
-    this.log(`hello ${name} from ./src/index.ts`)
-    if (args.file && flags.force) {
-      this.log(`you input --force and --file: ${args.file}`)
-    }
+    const track = new Tracker(args.url).trace()
   }
 }
 
