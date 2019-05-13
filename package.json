@@ -1,7 +1,7 @@
 {
   "name": "fewt",
   "description": "Front-end weight tracker",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Adam Phillips @adamphillips",
   "bin": {
     "fewt": "./bin/run"
