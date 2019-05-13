@@ -73,7 +73,7 @@ class Fewt extends Command {
 
           Fewt.rules.forEach(rule => {
             tableData[rule.key] = (summary[rule.key].totalEncodedDataLength / 1024).toFixed(2)
-            tableData[`${rule.key}-length`] = summary[rule.key].resources.length
+            tableData[`num ${rule.key}`] = summary[rule.key].resources.length
           })
 
           results[index] = tableData
@@ -87,7 +87,7 @@ class Fewt extends Command {
     const columns: { [key: string]: any} = {url: {}}
     Fewt.rules.forEach(rule => {
       columns[rule.key] = {}
-      columns[`${rule.key}-length`] = {}
+      columns[`num ${rule.key}`] = {}
     })
 
     cli.table(results, columns, {csv: flags.csv})
