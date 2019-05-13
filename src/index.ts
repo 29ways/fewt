@@ -17,7 +17,8 @@ class Fewt extends Command {
     url: flags.string({
       char: 'u',
       multiple: true
-    })
+    }),
+    csv: flags.boolean()
   }
 
   static args = []
@@ -85,7 +86,7 @@ class Fewt extends Command {
       columns[`${rule.key}-length`] = {}
     })
 
-    cli.table(results, columns)
+    cli.table(results, columns, {csv: flags.csv})
   }
 }
 
