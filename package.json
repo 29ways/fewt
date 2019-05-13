@@ -1,12 +1,12 @@
 {
-  "name": "fewt",
+  "name": "@29ways/fewt",
   "description": "Front-end weight tracker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Adam Phillips @adamphillips",
   "bin": {
     "fewt": "./bin/run"
   },
-  "bugs": "https://github.com/adamphillips/fewt/issues",
+  "bugs": "https://github.com/29ways/fewt/issues",
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
@@ -37,16 +37,16 @@
     "/bin",
     "/lib"
   ],
-  "homepage": "https://github.com/adamphillips/fewt",
+  "homepage": "https://github.com/29ways/fewt",
   "keywords": [
-    "oclif"
+    "web", "front-end", "performance"
   ],
   "license": "MIT",
   "main": "lib/index.js",
   "oclif": {
     "bin": "fewt"
   },
-  "repository": "adamphillips/fewt",
+  "repository": "29ways/fewt",
   "scripts": {
     "posttest": "tslint -p test -t stylish",
     "prepack": "rm -rf lib && tsc -b",
