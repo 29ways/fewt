@@ -43,6 +43,10 @@ class Fewt extends Command {
     {
       key: 'fonts',
       match: resource => resource.response.mimeType.match(/font/) !== null
+    },
+    {
+      key: 'all',
+      match: resource => resource.completed
     }
   ]
 
