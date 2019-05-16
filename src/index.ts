@@ -2,6 +2,8 @@ import {Command, flags} from '@oclif/command'
 import cli from 'cli-ux'
 const Listr = require('listr')
 const EventEmitter = require('events');
+const lighthouse = require('lighthouse');
+const chromeLauncher = require('chrome-launcher');
 
 import ResourceExtracter from './resource-extracter'
 import Summariser, {Rule} from './summariser'
@@ -51,6 +53,21 @@ class Fewt extends Command {
     }
   ]
 
+  static lighthouseMetrics: any[] = [
+    {
+      key: 'performance'
+    },
+    {
+      key: 'accessibility'
+    },
+    {
+      key: 'best-practices'
+    },
+    {
+      key: 'seo'
+    }
+  ]
+
   async run() {
     const {flags} = this.parse(Fewt)
 
@@ -79,13 +96,20 @@ class Fewt extends Command {
             tableData[`num ${rule.key}`] = summary[rule.key].resources.length
           })
 
+          await launchChromeAndRunLighthouse(url)
+            .then((results: any) => {
+              Fewt.lighthouseMetrics.forEach(metric => {
+                tableData[metric.key] = results.categories[metric.key].score
+              })
+            })
+
           results[index] = tableData
         }
       })
     }
 
     new EventEmitter().setMaxListeners(tasks.length)
-    await new Listr(tasks, {concurrent: true}).run()
+    await new Listr(tasks, {concurrent: false}).run()
 
     const columns: { [key: string]: any} = {url: {}}
     Fewt.rules.forEach(rule => {
@@ -93,8 +117,26 @@ class Fewt extends Command {
       columns[`num ${rule.key}`] = {}
     })
 
+    Fewt.lighthouseMetrics.forEach(metric => {
+      columns[metric.key] = {}
+    })
+
     cli.table(results, columns, {csv: flags.csv})
   }
+}
+
+async function launchChromeAndRunLighthouse(url: string, opts = {port: null}, config = null) {
+  const chromeFlags = ['--headless']
+  return chromeLauncher.launch({chromeFlags}).then((chrome: any) => {
+    opts.port = chrome.port
+    return lighthouse(url, opts, config).then((results: any) => {
+      // use results.lhr for the JS-consumeable output
+      // https://github.com/GoogleChrome/lighthouse/blob/master/types/lhr.d.ts
+      // use results.report for the HTML/JSON/CSV output as a string
+      // use results.artifacts for the trace/screenshots/other specific case you need (rarer)
+      return chrome.kill().then(() => results.lhr)
+    })
+  })
 }
 
 export = Fewt
