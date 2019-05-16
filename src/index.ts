@@ -18,7 +18,8 @@ class Fewt extends Command {
       char: 'u',
       multiple: true
     }),
-    csv: flags.boolean()
+    csv: flags.boolean(),
+    bytes: flags.boolean({char: 'b'})
   }
 
   static args = []
@@ -57,6 +58,8 @@ class Fewt extends Command {
 
     const tasks = []
 
+    const divider: number = (flags.bytes) ? 1 : 1024
+
     for (const [index, url] of flags.url.entries()) {
       tasks.push({
         title: url,
@@ -72,7 +75,7 @@ class Fewt extends Command {
           }
 
           Fewt.rules.forEach(rule => {
-            tableData[rule.key] = (summary[rule.key].totalEncodedDataLength / 1024).toFixed(2)
+            tableData[rule.key] = (summary[rule.key].totalEncodedDataLength / divider).toFixed(2)
             tableData[`num ${rule.key}`] = summary[rule.key].resources.length
           })
 
