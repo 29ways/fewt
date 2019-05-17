@@ -54,7 +54,7 @@
   "repository": "29ways/fewt",
   "scripts": {
     "posttest": "tslint -p test -t stylish",
-    "prepack": "rm -rf lib && tsc --outDir lib",
+    "prepack": "rm tsconfig.tsbuildinfo && rm -rf lib && tsc --outDir lib",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\""
   },
   "types": "lib/index.d.ts"
