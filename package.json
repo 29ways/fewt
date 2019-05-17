@@ -1,7 +1,7 @@
 {
   "name": "@29ways/fewt",
   "description": "Front-end weight tracker",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Adam Phillips @adamphillips",
   "bin": {
     "fewt": "./bin/run"
