@@ -534,7 +534,7 @@
       "declaration": true,
       "importHelpers": true,
       "module": 1,
-      "outDir": "/Users/adam/Work/Projects/Performance/fewt/lib",
+      "outDir": "lib",
       "rootDir": "/Users/adam/Work/Projects/Performance/fewt/src",
       "strict": true,
       "target": 4,

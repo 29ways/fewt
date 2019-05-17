@@ -1,19 +1,19 @@
 const hash = require('object-hash')
 const fs = require('fs')
 const puppeteer = require('puppeteer')
+const tmp = require('tmp')
 
 class Tracker {
   url: string
-
-  private readonly urlHash: string
+  tmpFile: any
 
   constructor(url: string) {
     this.url = url
-    this.urlHash = hash(this.url)
+    this.tmpFile = tmp.fileSync()
   }
 
   get filePath() {
-    return `./tmp/trace-${this.urlHash}.json`
+    return this.tmpFile.name
   }
 
   async trace() {
