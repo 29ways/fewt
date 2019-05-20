@@ -6,7 +6,7 @@
 
 A simple command that uses puppeteer to request a URL and calculates the total volume of resources downloaded as a result.
 
-The results are grouped by resource type. Values are returned in KB.
+The results are grouped by resource type. By default values are returned in KB.
 
 ## Example
 
@@ -27,5 +27,12 @@ https://google.com 66.84 5        0.00   0       285.24 4      49.36   5       0
 https://github.com 24.60 1        104.24 3       167.58 2      3331.59 40      314.28 2         3942.79 49
 ```
 
-Built using [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+## Options
 
+Option | Details
+-------|--------
+-u     | Required. Use this to specify the URLs to test
+-b     | Report in bytes rather than KB.
+--csv  | Output results in CSV format. This avoids truncation of long URLs and makes for easy pasting into a spreadsheet.
+
+Built using [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
