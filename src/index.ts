@@ -9,6 +9,11 @@ import ResourceExtracter from './resource-extracter'
 import Summariser, {Rule} from './summariser'
 import Tracker from './tracker'
 
+interface LighthouseRule {
+  key: string
+  match(resource: any): any
+}
+
 class Fewt extends Command {
   static description = 'Downloads volume of front-end weight for a given URL'
 
@@ -53,18 +58,70 @@ class Fewt extends Command {
     }
   ]
 
-  static lighthouseMetrics: any[] = [
+  static lighthouseMetrics: LighthouseRule[] = [
     {
-      key: 'performance'
+      key: 'performance',
+      match: results => results.categories.performance.score
     },
     {
-      key: 'accessibility'
+      key: 'accessibility',
+      match: results => results.categories.accessibility.score
     },
     {
-      key: 'best-practices'
+      key: 'best-practices',
+      match: results => results.categories['best-practices'].score
     },
     {
-      key: 'seo'
+      key: 'seo',
+      match: results => results.categories.seo.score
+    },
+    {
+      key: 'first-contentful-paint-score',
+      match: results => results.audits['first-contentful-paint'].score
+    },
+    {
+      key: 'first-contentful-paint-value',
+      match: results => results.audits['first-contentful-paint'].numericValue
+    },
+    {
+      key: 'first-meaningful-paint-score',
+      match: results => results.audits['first-meaningful-paint'].score
+    },
+    {
+      key: 'first-meaningful-paint-value',
+      match: results => results.audits['first-meaningful-paint'].numericValue
+    },
+    {
+      key: 'speed-index-score',
+      match: results => results.audits['speed-index'].score
+    },
+    {
+      key: 'speed-index-value',
+      match: results => results.audits['speed-index'].numericValue
+    },
+    {
+      key: 'time-to-first-byte-score',
+      match: results => results.audits['time-to-first-byte'].score
+    },
+    {
+      key: 'time-to-first-byte-value',
+      match: results => results.audits['time-to-first-byte'].numericValue
+    },
+    {
+      key: 'first-cpu-idle-score',
+      match: results => results.audits['first-cpu-idle'].score
+    },
+    {
+      key: 'first-cpu-idle-value',
+      match: results => results.audits['first-cpu-idle'].numericValue
+    },
+    {
+      key: 'interactive-score',
+      match: results => results.audits.interactive.score
+    },
+    {
+      key: 'interactive-value',
+      match: results => results.audits.interactive.numericValue
     }
   ]
 
@@ -99,7 +156,7 @@ class Fewt extends Command {
           await launchChromeAndRunLighthouse(url)
             .then((results: any) => {
               Fewt.lighthouseMetrics.forEach(metric => {
-                tableData[metric.key] = results.categories[metric.key].score
+                tableData[metric.key] = metric.match(results)
               })
             })
 
