@@ -1,8 +1,8 @@
 # fewt
 
-[![Version](https://img.shields.io/npm/v/fewt.svg)](https://npmjs.org/package/fewt)
-[![Downloads/week](https://img.shields.io/npm/dw/fewt.svg)](https://npmjs.org/package/fewt)
-[![License](https://img.shields.io/npm/l/fewt.svg)](https://github.com/adamphillips/fewt/blob/master/package.json)
+[![Version](https://img.shields.io/npm/v/fewt.svg)](https://npmjs.org/package/@29ways/fewt)
+[![Downloads/week](https://img.shields.io/npm/dw/fewt.svg)](https://npmjs.org/package/@29ways/fewt)
+[![License](https://img.shields.io/npm/l/fewt.svg)](https://github.com/29ways/fewt/blob/master/package.json)
 
 A simple command that uses puppeteer to request a URL and calculates the total volume of resources downloaded as a result.
 
